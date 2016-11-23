@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Doors Open Ottawa</string>
+    <string name="get_data">Get data</string>
+    <string name="building_name_placeholder">Building Name</string>
+    <string name="building_address_placeholder">Building Address</string>
+    <string name="building_description_placeholder">Building Description</string>
+    <string name="title_activity_details">Map</string>
+    <string name="action_about">About</string>
+    <string name="author">Owen Sheehan (shee0058)</string>
+</resources>
