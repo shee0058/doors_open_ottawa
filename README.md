@@ -1,33 +1,33 @@
 # doors_open_ottawa
 
-FR #1 - Swipe Down to Refresh
-    Status: complete
+FR #1 - Swipe Down to Refresh <br/>
+    Status: complete <br/>
     LOC: 8
     
-FR #2 - Create A New Building
-    Status: not working
+FR #2 - Create A New Building <br/>
+    Status: not working <br/>
     LOC: 31
     
-FR #3 - Update Your Building
-    Status: not done
+FR #3 - Update Your Building <br/>
+    Status: not done <br/>
     LOC: N/A
     
-FR #4 - Upload a Photo to your Building
-    Status: not done
+FR #4 - Upload a Photo to your Building <br/>
+    Status: not done <br/>
     LOC: 21
     
-FR #5 - Delete Your Building
-    Status: not done
+FR #5 - Delete Your Building <br/>
+    Status: not done <br/>
     LOC: N/A
     
-FR #6 - Favourite Buildings
-    Status: not done
+FR #6 - Favourite Buildings <br/>
+    Status: not done <br/>
     LOC: N/A
     
-FR #7 - Sort Alphabetically
-    Status: done
+FR #7 - Sort Alphabetically <br/>
+    Status: done <br/>
     LOC: 16
     
-FR #8 - Search For A building
-    Status: not done
+FR #8 - Search For A building <br/>
+    Status: not done <br/>
     LOC: 5
