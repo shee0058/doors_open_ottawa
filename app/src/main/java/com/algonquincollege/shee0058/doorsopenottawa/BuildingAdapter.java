@@ -27,7 +27,7 @@ import org.w3c.dom.Text;
  * Created by owensheehan on 2016-11-08.
  */
 
-public class BuildingAdapter extends ArrayAdapter<Building>{
+public class BuildingAdapter extends ArrayAdapter<Building> {
 
     private Context context;
     private List<Building> buildingList;
@@ -35,18 +35,18 @@ public class BuildingAdapter extends ArrayAdapter<Building>{
     private LruCache<Integer, Bitmap> imageCache;
 
 
-    public BuildingAdapter(Context context, int resource, List<Building> objects){
+    public BuildingAdapter(Context context, int resource, List<Building> objects) {
         super(context, resource, objects);
         this.context = context;
         this.buildingList = objects;
 
-        final int maxMemory = (int)(Runtime.getRuntime().maxMemory() /1024);
+        final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
         final int cacheSize = maxMemory / 8;
         imageCache = new LruCache<>(cacheSize);
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent){
+    public View getView(int position, View convertView, ViewGroup parent) {
 
         LayoutInflater inflater =
                 (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
@@ -64,12 +64,11 @@ public class BuildingAdapter extends ArrayAdapter<Building>{
 
         Bitmap bitmap = imageCache.get(building.getBuildingId());
         if (bitmap != null) {
-            Log.i( "BUILDINGS", building.getName() + "\tbitmap in cache");
+            Log.i("BUILDINGS", building.getName() + "\tbitmap in cache");
             ImageView image = (ImageView) view.findViewById(R.id.imageView1);
             image.setImageBitmap(building.getBitmap());
-        }
-        else {
-            Log.i( "BUILDINGS", building.getName() + "\tfetching bitmap using AsyncTask");
+        } else {
+            Log.i("BUILDINGS", building.getName() + "\tfetching bitmap using AsyncTask");
             BuildingAndView container = new BuildingAndView();
             container.building = building;
             container.view = view;
@@ -104,7 +103,7 @@ public class BuildingAdapter extends ArrayAdapter<Building>{
                 container.bitmap = bitmap;
                 return container;
             } catch (Exception e) {
-                System.err.println("IMAGE: " + building.getName() );
+                System.err.println("IMAGE: " + building.getName());
                 e.printStackTrace();
             }
 
@@ -113,6 +112,9 @@ public class BuildingAdapter extends ArrayAdapter<Building>{
 
         @Override
         protected void onPostExecute(BuildingAndView result) {
+            if (result == null) {
+                return;
+            }
             ImageView image = (ImageView) result.view.findViewById(R.id.imageView1);
             image.setImageBitmap(result.bitmap);
             result.building.setBitmap(result.bitmap);

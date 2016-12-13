@@ -7,4 +7,5 @@
     <string name="title_activity_details">Map</string>
     <string name="action_about">About</string>
     <string name="author">Owen Sheehan (shee0058)</string>
+    <string name="search_title">Search</string>
 </resources>

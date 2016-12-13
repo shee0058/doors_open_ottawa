@@ -8,6 +8,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,14 +21,16 @@ import android.widget.Toast;
 import com.algonquincollege.shee0058.doorsopenottawa.model.Building;
 import com.algonquincollege.shee0058.doorsopenottawa.parsers.BuildingJSONParser;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
- *  Doors Open Ottawa App - Display all the data from Doors Open Ottawa
- *  and give the location using google map API
- *  @author Owen Sheehan (shee0058@algonquinlive.com)
+ * Doors Open Ottawa App - Display all the data from Doors Open Ottawa
+ * and give the location using google map API
+ *
+ * @author Owen Sheehan (shee0058@algonquinlive.com)
  */
 
 public class MainActivity extends ListActivity {
@@ -53,6 +56,7 @@ public class MainActivity extends ListActivity {
 
         pb = (ProgressBar) findViewById(R.id.progressBar1);
         ListView list = (ListView) findViewById(android.R.id.list);
+        final SwipeRefreshLayout refresher = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
         pb.setVisibility(View.INVISIBLE);
 
         tasks = new ArrayList<>();
@@ -79,6 +83,44 @@ public class MainActivity extends ListActivity {
                 startActivity(intent);
             }
         });
+
+        list.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+
+                return false;
+            }
+        });
+
+        refresher.setOnRefreshListener(
+                new SwipeRefreshLayout.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+                        requestData(REST_URI);
+                        refresher.setRefreshing(false);
+                        pb.setVisibility(View.INVISIBLE);
+                    }
+                }
+        );
+    }
+
+    @Override
+    protected void onPause() {
+        Log.e("TAG", "onPause");
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.e("TAG", "onStop");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        MyTask task = new MyTask();
+        task.execute(IMAGES_BASE_URL + "users/logout");
     }
 
     @Override
@@ -95,7 +137,35 @@ public class MainActivity extends ListActivity {
             DialogFragment newFragment = new AboutDialogFragment();
             newFragment.show(getFragmentManager(), ABOUT_DIALOG_TAG);
         }
-        return false;
+
+        if (item.getItemId() == R.id.action_post_data) {
+            Intent intent = new Intent(getApplicationContext(), AddActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }
+
+        switch (item.getItemId()) {
+            case R.id.action_sort_name_asc:
+                Collections.sort(buildingList, new Comparator<Building>() {
+                    @Override
+                    public int compare(Building lhs, Building rhs) {
+                        return lhs.getName().compareTo(rhs.getName());
+                    }
+                });
+                break;
+
+            case R.id.action_sort_name_dsc:
+                Collections.sort(buildingList, Collections.reverseOrder(new Comparator<Building>() {
+                    @Override
+                    public int compare(Building lhs, Building rhs) {
+                        return lhs.getName().toLowerCase().compareTo(rhs.getName().toLowerCase());
+                    }
+                }));
+                break;
+        }
+        item.setChecked(true);
+        ((BuildingAdapter) getListAdapter()).notifyDataSetChanged();
+        return true;
     }
 
     private void requestData(String uri) {
@@ -131,9 +201,9 @@ public class MainActivity extends ListActivity {
         @Override
         protected List<Building> doInBackground(String... params) {
 
-            String content = HttpManager.getData(params[0]);
+            String content = HttpManager.getData(params[0], "shee0058", "password");
             buildingList = BuildingJSONParser.parseFeed(content);
-
+            Log.i("BUILDING", content);
             return buildingList;
         }
 
