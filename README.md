@@ -5,7 +5,7 @@ FR #1 - Swipe Down to Refresh <br/>
     LOC: 8
     
 FR #2 - Create A New Building <br/>
-    Status: not working <br/>
+    Status: complete <br/>
     LOC: 31
     
 FR #3 - Update Your Building <br/>
@@ -25,9 +25,9 @@ FR #6 - Favourite Buildings <br/>
     LOC: N/A
     
 FR #7 - Sort Alphabetically <br/>
-    Status: done <br/>
+    Status: complete <br/>
     LOC: 16
     
 FR #8 - Search For A building <br/>
-    Status: not done <br/>
-    LOC: 5
+    Status: complete <br/>
+    LOC: 33
