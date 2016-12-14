@@ -13,7 +13,7 @@ FR #3 - Update Your Building <br/>
     LOC: N/A
     
 FR #4 - Upload a Photo to your Building <br/>
-    Status: not done <br/>
+    Status: not done (able to take picture, not upload it) <br/>
     LOC: 21
     
 FR #5 - Delete Your Building <br/>
