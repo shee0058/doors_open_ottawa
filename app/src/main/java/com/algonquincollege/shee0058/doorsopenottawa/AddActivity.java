@@ -58,10 +58,10 @@ public class AddActivity extends Activity {
             public void onClick(View v) {
 
                 Building building = new Building();
-                building.setName(buildingName);
-                building.setAddress(buildingAddress + " Ottawa, Ontario");
+                building.setName("Owen Sheehan");
+                building.setAddress("Test, ");
                 building.setImage("sample.png");
-                building.setDescription(buildingDescription);
+                building.setDescription("Test");
 
                 RequestPackage pkg = new RequestPackage();
                 pkg.setMethod(HttpMethod.POST);
